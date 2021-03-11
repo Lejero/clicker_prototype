@@ -1,52 +1,32 @@
-#![allow(dead_code)]
-#![allow(unused_imports)]
-
 use druid::im::{vector, Vector};
-use druid::widget::{CrossAxisAlignment, Flex, Label, List, MainAxisAlignment, Padding as Pad, TextBox};
+use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, MainAxisAlignment, Padding as Pad, TextBox};
 use druid::*;
 
-use crate::game_loop::game_loop::{Character, GameState, Resource, Resources};
-use crate::ui::widget::resources::*;
+// use crate::game::resource::{Resource, Resources};
+use crate::game::{GameMessage, GameState};
+use crate::ui::widget::character::CharacterWidget;
+use crate::ui::widget::ctrl_panel::PanelWidget;
+use crate::ui::widget::resources::ResourcesWidget;
 use crate::ui::TerminateOnCloseDelegate;
 
 use std::fmt::Debug;
-use std::sync::{Arc, Mutex};
+use std::sync::mpsc;
 use std::time::{Duration, Instant};
 use std::vec::*;
 
-pub const UPDATE_RESOURCE: Selector<Resource> = Selector::new("clicker_prototype.update_resource");
-pub const UPDATE_RESOURCES: Selector<Resources> = Selector::new("clicker_prototype.update_resources");
-
-// pub fn start(state: GameState) -> Result<(), PlatformError> {
-// }
+pub const MIN_RESOLUTION: Size = Size::new(480.0, 480.0);
+pub const DEFAULT_RESOLUTION: Size = Size::new(1200.0, 900.0);
 
 pub fn build_ui() -> impl Widget<GameState> {
-    // build_resource_widget().lens(GameState::resources)
+    let mut main_element = Flex::row()
+        .with_child(ResourcesWidget::new().lens(GameState::resources))
+        .with_child(CharacterWidget::new().lens(GameState::main_character))
+        .with_child(PanelWidget::new());
 
-    Pad::new(2.0, ResourcesWidget::new().lens(GameState::resources))
+    main_element.set_must_fill_main_axis(false);
+    main_element.set_cross_axis_alignment(CrossAxisAlignment::Start);
+    main_element.set_main_axis_alignment(MainAxisAlignment::Start);
+
+    Pad::new(5.0, main_element)
     //Pad::new(2.0, build_resources_widget().lens(GameState::resources))
-}
-
-// fn build_resource_widget() -> impl Widget<Resources> {
-//     Pad::new(
-//         2.0,
-//         Flex::column()
-//             .with_flex_child(build_resource_row(false).lens(Resources::iron), 1.0)
-//             .with_flex_child(build_resource_row(false).lens(Resources::copper), 1.0)
-//             .with_flex_child(build_resource_row(false).lens(Resources::tin), 1.0)
-//             .with_flex_child(build_resource_row(false).lens(Resources::nickel), 1.0)
-//             .with_flex_child(build_resource_row(false).lens(Resources::coal), 1.0)
-//             .with_flex_child(build_resource_row(false).lens(Resources::steel), 1.0),
-//     )
-// }
-
-fn build_character_widget() -> impl Widget<Character> {
-    Pad::new(2.0, Flex::column())
-}
-
-fn build_resource_row(_actively_collected: bool) -> impl Widget<Resource> {
-    //let name = (format!("{}:", resource_name)).as_str();
-    Flex::row()
-        .with_flex_child(Label::dynamic(|data: &String, _| format!("{}:", data)).lens(Resource::name), 2.0)
-        .with_flex_child(Label::dynamic(|data: &i64, _| format!("{}", data)).lens(Resource::quantity), 1.0)
 }
