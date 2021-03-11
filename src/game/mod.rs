@@ -1,5 +1,6 @@
 pub mod character;
 pub mod resource;
+pub mod resources;
 
 mod cycle;
 pub use cycle::start;

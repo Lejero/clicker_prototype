@@ -1,7 +1,7 @@
 use druid::*;
 
 use crate::game::character::Character;
-use crate::game::resource::{Resource, Resources};
+use crate::game::{resource::Resource, resources::Resources};
 use crate::game::{GameMessage, GameState};
 use crate::ui::events::{UPDATE_RESOURCE, UPDATE_RESOURCES};
 use std::convert::TryInto;

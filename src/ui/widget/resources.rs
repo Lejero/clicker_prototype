@@ -1,8 +1,10 @@
 use druid::im::{vector, Vector};
-use druid::widget::{Container, CrossAxisAlignment, Flex, Label, List, MainAxisAlignment, Padding as Pad, TextBox, WidgetExt};
+use druid::widget::{
+    Container, CrossAxisAlignment, Flex, Label, List, MainAxisAlignment, Padding as Pad, TextBox, WidgetExt,
+};
 use druid::*;
 
-use crate::game::resource::{Resource, Resources};
+use crate::game::{resource::Resource, resources::Resources};
 use crate::ui::events::{UPDATE_RESOURCE, UPDATE_RESOURCES};
 use crate::ui::widget::resource::ResourceWidget;
 use crate::ui::widget::util;

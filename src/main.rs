@@ -8,7 +8,10 @@ use druid::*;
 extern crate clicker_prototype as cp;
 use cp::game;
 use cp::game::character::Character;
-use cp::game::resource::{Resource, Resources, HMT, OMT};
+use cp::game::{
+    resource::Resource,
+    resources::{Resources, HMT, OMT},
+};
 use cp::game::{GameMessage, GameState};
 use cp::ui::ui;
 use cp::ui::TerminateOnCloseDelegate;

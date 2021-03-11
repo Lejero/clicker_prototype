@@ -1,8 +1,8 @@
 use druid::*;
 
 use crate::game::character::Character;
-use crate::game::resource::{Resource, Resources};
 use crate::game::GameMessage;
+use crate::game::{resource::Resource, resources::Resources};
 use std::convert::TryInto;
 use std::fmt;
 use std::sync::mpsc;
