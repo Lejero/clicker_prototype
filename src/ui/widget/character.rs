@@ -71,6 +71,7 @@ fn build_character_widget() -> impl Widget<Character> {
     let flex = util::default_flex_col()
         .with_child(Label::dynamic(|data: &String, _| format!("{}", data)).lens(Character::name))
         .with_child(Label::dynamic(|data: &f64, _| format!("{}", data)).lens(Character::health))
-        .with_child(Label::dynamic(|data: &f64, _| format!("{}", data)).lens(Character::mana));
+        .with_child(Label::dynamic(|data: &f64, _| format!("{}", data)).lens(Character::mana))
+        .with_child(Label::dynamic(|data: &f64, _| format!("Collecting: {}", "Nothing")).lens(Character::mana));
     util::default_container(flex)
 }

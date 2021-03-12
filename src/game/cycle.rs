@@ -41,8 +41,24 @@ impl StateWrapper {
                 handle_message(m, &self.ui_event_hdl, &mut self.state);
             }
 
-            add_iron_event.if_elapsed(|| self.msg_update_resource("Iron"));
-            add_copper_event.if_elapsed(|| self.msg_update_resource("Copper"));
+            add_iron_event.if_elapsed(|| {
+                let res_opt = self.state.resources.ls.get_mut("Iron");
+                match res_opt {
+                    Some(res) => res.add_qty(1),
+                    None => {
+                        println!("druid::im::Vector Error - Finding index of '{}'", "Iron");
+                    }
+                }
+            });
+            add_copper_event.if_elapsed(|| {
+                let res_opt = self.state.resources.ls.get_mut("Copper");
+                match res_opt {
+                    Some(res) => res.add_qty(1),
+                    None => {
+                        println!("druid::im::Vector Error - Finding index of '{}'", "Copper");
+                    }
+                }
+            });
 
             _counter += 1;
             thread::sleep(self.wait_time);
@@ -50,7 +66,7 @@ impl StateWrapper {
     }
 
     pub fn msg_update_resource(&mut self, name: &str) {
-        let res_opt = self.state.resources.ls.m.get_mut(name);
+        let res_opt = self.state.resources.ls.get_mut(name);
 
         match res_opt {
             Some(res) => {
@@ -114,7 +130,7 @@ fn update_resource_gather() {}
 fn handle_message(msg: GameMessage, event_handle: &ExtEventSink, state: &mut GameState) {
     match msg {
         GameMessage::MineResource(resource_name) => {
-            let res_opt = state.resources.ls.m.get_mut(&resource_name);
+            let res_opt = state.resources.ls.get_mut(&resource_name);
 
             match res_opt {
                 Some(res) => {

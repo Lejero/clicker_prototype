@@ -1,5 +1,7 @@
 use druid::im::{vector, Vector};
-use druid::widget::{Container, CrossAxisAlignment, Flex, Label, List, MainAxisAlignment, Padding as Pad, TextBox, WidgetExt};
+use druid::widget::{
+    Container, CrossAxisAlignment, Flex, Label, List, MainAxisAlignment, Padding as Pad, TextBox, WidgetExt,
+};
 use druid::*;
 
 use crate::game::resource::Resource;
@@ -64,7 +66,7 @@ impl Widget<WidgetData> for ResourceWidget {
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &WidgetData, env: &Env) {
         let size = ctx.size();
-        let rect = size.to_rect();
+        let _rect = size.to_rect();
 
         self.element.paint(ctx, data, env);
     }

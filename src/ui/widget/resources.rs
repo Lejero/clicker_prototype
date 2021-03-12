@@ -75,29 +75,8 @@ impl Widget<Resources> for ResourcesWidget {
     }
 
     fn layout(&mut self, ctx: &mut LayoutCtx, bc: &BoxConstraints, data: &Resources, env: &Env) -> Size {
-        let size: Size;
-        //let child_bc = self.child_constraints(bc);
-        let mut child_bc = BoxConstraints::new(self.min_size, bc.max());
-        let mut children_width: f64 = 0.0;
-        let mut children_height: f64 = 0.0;
-        //let mut child_size = Size::new(0.0, 0.0);
-        // child_height = self.resources_element.layout(ctx, &child_bc, data, env);
-        // for child in self.resources_element.iter_mut() {
-        //     // child_bc = BoxConstraints::new
-        //     let child_size = child.layout(ctx, &child_bc, data, env);
-        //     let child_pos: Point = Point::new(0.0, children_height);
-        //     //child.set_origin(ctx, data, env, child_pos);
-
-        //     children_width = if children_width >= child_size.width { children_width } else { child_size.width };
-        //     children_height += child_size.height;
-        // }
-
+        let child_bc = BoxConstraints::new(self.min_size, bc.max());
         let child_size = self.resources_element.layout(ctx, &child_bc, data, env);
-
-        // child_size.height = children_height;
-
-        //let origin = Point::new(10.0, 10.0);
-        //self.resources_element.set_origin(ctx, data, env, origin);
 
         // println!("{}", child_size);
         // BoxConstraints::new(child_size, bc.max()).min()
@@ -106,7 +85,7 @@ impl Widget<Resources> for ResourcesWidget {
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &Resources, env: &Env) {
         let size = ctx.size();
-        let rect = size.to_rect();
+        let _rect = size.to_rect();
 
         //ctx.fill(rect, &Color::WHITE);
         // let other_rect = Rect::new(rect.x0 + 10.0, rect.y0 + 10.0, (rect.x1 - 10.0) / 2.0, (rect.y1 - 10.0) / 2.0);
@@ -122,26 +101,6 @@ impl Widget<Resources> for ResourcesWidget {
     //     self.resources_element.id()
     // }
 }
-
-// pub fn build_resources_widget() -> impl Widget<Resources> {
-//     //Pad::new(
-//     //2.0,
-//     let mut flex = Flex::column()
-//         //.with_flex_child(Label::new("Resources:"), 1.0)
-//         .with_flex_child(build_resource_row(false).lens(Resources::iron), 1.0)
-//         .with_flex_child(build_resource_row(false).lens(Resources::copper), 1.0)
-//         .with_flex_child(build_resource_row(false).lens(Resources::tin), 1.0)
-//         .with_flex_child(build_resource_row(false).lens(Resources::nickel), 1.0)
-//         .with_flex_child(build_resource_row(false).lens(Resources::coal), 1.0)
-//         .with_flex_child(build_resource_row(false).lens(Resources::steel), 1.0);
-//     //)
-
-//     flex.set_must_fill_main_axis(false);
-//     flex = flex.cross_axis_alignment(CrossAxisAlignment::Start);
-//     flex = flex.main_axis_alignment(MainAxisAlignment::Start);
-
-//     flex
-// }
 
 fn build_resources_widget() -> Container<Resources> {
     let ls = List::new(|| ResourceWidget::new()).lens(Resources::ls);
